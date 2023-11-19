@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\User;
+use App\Models\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -31,8 +32,10 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
+        $usersData = Client::where('id', $user->client_id)->first();
         return response()->json([
             'user' => $user,
+            'usersData' => $usersData,
             'authorization' => [
                 'token' => $token,
                 'type' => 'bearer',

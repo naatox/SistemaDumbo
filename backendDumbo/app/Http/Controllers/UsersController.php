@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Client;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,7 +16,7 @@ class UsersController extends Controller
 
     public function getUsers(){
         try{
-            $users = User::all();
+            $users = Client::all();
             return response()->json([
                 'users' => $users,
             ]);
@@ -32,9 +33,8 @@ class UsersController extends Controller
             $request->validate([
                 'firstName' => 'required|string|max:255',
                 'lastName' => 'required|string|max:255',
-                'idNumber' => 'required|string|max:255|unique:users',
-                'email' => 'required|string|email|max:255|unique:users',
-                'password' => 'required|string|max:255',
+                'idNumber' => 'required|string|max:255|unique:clients',
+                'email' => 'required|string|email|max:255|unique:clients',
                 'points' => 'required|integer|max:255',
             ]);
             if($request->points < 0){
@@ -44,19 +44,17 @@ class UsersController extends Controller
             }
 
 
-            $user = User::create([
+            $user = Client::create([
                 'firstName' => $request->firstName,
                 'lastName' => $request->lastName,
                 'idNumber' => $request->idNumber,
-                'user' => 'null',
                 'email' => $request->email,
-                'password' => Hash::make($request->password),
                 'points' => $request->points,
                 'role' => 'client',
             ]);
 
             return response()->json([
-                'message' => 'User created successfully',
+                'message' => 'Client created successfully',
                 'user' => $user
             ]);
 
@@ -78,7 +76,7 @@ class UsersController extends Controller
                 'password' => 'required|string|max:255',
                 'points' => 'required|integer|max:255',
             ]);
-            $user = User::where('id',$request->id)->update([
+            $user = Client::where('id',$request->id)->update([
                 'firstName' => $request->firstName,
                 'lastName' => $request->lastName,
                 'email' => $request->email,
@@ -88,7 +86,7 @@ class UsersController extends Controller
             ]);
 
             return response()->json([
-                'message' => 'User updated successfully',
+                'message' => 'Client updated successfully',
             ]);
         }catch(\Exception $e){
             return response()->json([
@@ -101,15 +99,15 @@ class UsersController extends Controller
 
     public function deleteUser(Request $request){
         try{
-            $user = User::find($request->id);
+            $user = Client::find($request->id);
             if (!$user) {
                 return response()->json([
-                    'message' => 'User not found',
+                    'message' => 'Client not found',
                 ], 404);
             }
             $user->delete();
             return response()->json([
-                'message' => 'User deleted successfully',
+                'message' => 'Client deleted successfully',
             ]);
         }catch(\Exception $e){
             return response()->json([
@@ -123,14 +121,14 @@ class UsersController extends Controller
     {
         try{
             $request->validate([
-                'idNumber' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255',
+                'idNumber' => 'string|max:255',
+                'email' => 'string|email|max:255',
             ]);
 
-            $user = User::where('idNumber', $request->idNumber)->orWhere('email',$request->email)->first();
+            $user = Client::where('idNumber', $request->idNumber)->orWhere('email',$request->email)->first();
             if (!$user) {
                 return response()->json([
-                    'message' => 'User not found',
+                    'message' => 'Client not found',
                 ], 404);
             }else{
                 return response()->json([
