@@ -16,10 +16,8 @@ class UsersController extends Controller
 
     public function getUsers(){
         try{
-            $users = Client::all();
-            return response()->json([
-                'users' => $users,
-            ]);
+            $users = Client::where('role','client')->get();
+            return response()->json($users);
         }catch(\Exception $e){
             return response()->json([
                 'message' => 'Error',
@@ -74,7 +72,7 @@ class UsersController extends Controller
                 'lastName' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|max:255',
-                'points' => 'required|integer|max:255',
+                'points' => 'required|integer',
             ]);
             $user = Client::where('id',$request->id)->update([
                 'firstName' => $request->firstName,

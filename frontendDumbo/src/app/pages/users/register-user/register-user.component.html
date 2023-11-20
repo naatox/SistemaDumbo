@@ -1,0 +1,33 @@
+<app-nav></app-nav>
+
+<div id="log" class="center">
+  <form class="custom-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h3>Nuevo usuario</h3>
+    <div class="mb-3">
+      <label for="">Nombre</label>
+      <input type="text" id="firstName" class="form-control" formControlName="firstName" placeholder="Nombre">
+    </div>
+    <div class="mb-3">
+      <label for="">Apellido</label>
+      <input type="text" id="lastName" class="form-control" formControlName="lastName" placeholder="Apellido">
+    </div>
+    <div class="mb-3">
+      <label for="">RUT/DNI</label>
+      <input type="text" id="idNumber" class="form-control" formControlName="idNumber" placeholder="RUT/DNI">
+    </div>
+    <div class="mb-3">
+      <label for="">Correo</label>
+      <input type="email" id="email" class="form-control" formControlName="email" placeholder="Correo">
+    </div>
+    <div class="mb-3">
+      <label for="">Puntos</label>
+      <input type="number" id="points" class="form-control" formControlName="points" placeholder="Puntos">
+    </div>
+    <button type="submit" values="send" class="btn btn-info">Registrar</button>
+  </form>
+</div>
+
+
+
+
+

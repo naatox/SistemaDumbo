@@ -1,0 +1,33 @@
+<app-nav></app-nav>
+
+<div id="usersTableDiv" style="display: block;" >
+  <table id="clients" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Rut/DNI</th>
+        <th>Correo</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of usersData">
+        <th>{{user.id}}</th>
+        <th>{{user.firstName}}</th>
+        <th>{{user.lastName}}</th>
+        <th>{{user.idNumber}}</th>
+        <th>{{user.email}}</th>
+        <th>
+          <button id="button" class="btn btn-primary" (click)="editUser(user.id)" >Editar</button>
+          <button id="button" class="btn btn-danger" (click)="deleteUser(user.id)" >Eliminar</button>
+      </tr>
+    </tbody>
+  </table>
+
+
+</div>
+<div class="center">
+  <button id="createUser" class="btn btn-info" (click)="registerUser()" >Nuevo Usuario</button>
+</div>

@@ -1,41 +1,14 @@
-<div id="container">
-  <div id="containerCenter">
-    <div class="login">
-      <form [formGroup]="loginForm">
-        <p class="text-danger">{{loginError}}</p>
-        <div class="mb-3">
-          <label for="user" class="form-label">Correo electrónico: </label>
-          <input formControlName="user" type="user" class="form-control" aria-describedby="emailHelp">
-            <div *ngIf="user.invalid && (user.dirty || user.touched)" class= "text-danger">
-                <div *ngIf = "user.errors?.['required']" >
-                  El correo electrónico es requerido
-                </div>
-                <div *ngIf="user.errors?.['user']">
-                  El correo electrónico debe tener un formato valido
-                </div>
-            </div>
-        </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Contraseña</label>
-          <input formControlName="password" type="password" class="form-control">
-            <div *ngIf="password.invalid && (password.dirty || password.touched)" class= "text-danger">
-              <div *ngIf = "password.errors?.['required']" >
-                El password es requerido
-              </div>
-        </div>
-        </div>
-        <button type="submit" (click)="login()" class="">INICIAR SESIÓN</button>
-      </form>
+<div id="log" class="login">
+  <form class="custom-form" [formGroup]="form" (ngSubmit)="onSubmit()" >
+    <h1>Bienvendio Administrador</h1>
+    <div class="mb-3">
+      <label for="">Usuario</label>
+     <input type="text" class="form-control" formControlName="user" id="">
     </div>
-    <div id="right">
-      <div class="title">
-          Bienvenido
-      </div>
-      <hr>
-      <div class="footer-form">
-
-          <a href="mailto:guillermo.fuentes01@alumnos.ucn.cl">¿Tienes problemas? ¡Contacta al soporte aquí!</a>
-      </div>
-  </div>
-  </div>
+    <div class="mb-3">
+      <label for="">Contraseña</label>
+      <input type="text" class="form-control" formControlName="password">
+    </div>
+    <button type="submit" values="send" class="btn btn-info">Iniciar Sesión</button>
+  </form>
 </div>
