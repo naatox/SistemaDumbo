@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Subject, firstValueFrom } from 'rxjs';
+import { Observable, Subject, firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -30,11 +30,23 @@ export class UsersService {
     return this.http.delete(`${this.baseUrl}/api/deleteUser?id=${id}`, {headers, responseType: 'json'});
   }
   registerUser(formValue: any){
+
+      const token = localStorage.getItem('token');
+      console.log(token);
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+      return this.http.post(`${this.baseUrl}/api/registerUser`, formValue, {headers, responseType: 'json'});
+
+
+
+  }
+  editUser(formValue: any, id: any){
     const token = localStorage.getItem('token');
     console.log(token);
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return firstValueFrom( this.http.post(`${this.baseUrl}/api/registerUser`, formValue, {headers, responseType: 'json'}));
+    return this.http.patch(`${this.baseUrl}/api/updateUser?id=${id}`, formValue, {headers, responseType: 'json'});
   }
 }

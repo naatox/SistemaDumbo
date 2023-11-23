@@ -18,16 +18,17 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $request->validate([
-            'user' => 'required|string',
-            'password' => 'required|string',
-        ]);
+        $messages = makeMessages();
+        $this->validate($request,[
+            'user' => ['required', 'string'],
+            'password' => ['required', 'string'],
+        ], $messages);
         $credentials = $request->only('user', 'password');
         $token = Auth::attempt($credentials);
 
         if (!$token) {
             return response()->json([
-                'message' => 'Unauthorized',
+                'message' => 'Usuario o contraseña incorrectos',
             ], 401);
         }
 

@@ -3,6 +3,7 @@ import { UsersService } from 'src/app/services/User/users.service';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { LoginService } from 'src/app/services/Auth/login.service';
 
 @Component({
   selector: 'app-users',
@@ -12,7 +13,7 @@ import Swal from 'sweetalert2';
 export class UsersComponent implements OnInit, OnDestroy {
   user : any = [];
   usersData: any = [];
-  constructor(private users: UsersService, private router: Router) { }
+  constructor(private users: UsersService, private router: Router, private logout: LoginService) { }
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: DataTables.Settings = {};
   ngOnInit() {
@@ -61,36 +62,8 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   }
   editUser(id: any){
-    type LoginFormResult = {
-      firstName: string
-      points: string
-    }
-    let firstNameInput: HTMLInputElement
-    let pointsInput: HTMLInputElement
-    Swal.fire<LoginFormResult>({
-      title: 'Login Form',
-      html: `
-        <input type="text" id="firstName" class="swal2-input" placeholder="firstName">
-        <input type="points" id="points" class="swal2-input" placeholder="points">
-      `,
-      confirmButtonText: 'Sign in',
-      focusConfirm: false,
-      didOpen: () => {
-        const popup = Swal.getPopup()!
-        firstNameInput = popup.querySelector('#firstName') as HTMLInputElement
-        pointsInput = popup.querySelector('#points') as HTMLInputElement
-        firstNameInput.onkeyup = (event) => event.key === 'Enter' && Swal.clickConfirm()
-        pointsInput.onkeyup = (event) => event.key === 'Enter' && Swal.clickConfirm()
-      },
-      preConfirm: () => {
-        const firstName = firstNameInput.value
-        const points = pointsInput.value
-        if (!firstName || !points) {
-          Swal.showValidationMessage(`Please enter firstName and points`)
-        }
-        return { firstName, points }
-      },
-    })
+
+    this.router.navigate(['usuarios/editar', id]);
   }
 
   registerUser(){
@@ -102,6 +75,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.dtTrigger.unsubscribe();
 
   }
+
 
 
 

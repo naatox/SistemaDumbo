@@ -1,7 +1,7 @@
 <nav id="nav" class="navbar navbar-expand-lg navbar-light ">
   <img id="img" src="assets/img/logo.png" alt="">
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="/inicio">Dumbo</a>
+    <a class="navbar-brand" style="font-style: italic;font-size:200%;" routerLink="/inicio">Dumbo</a>
     <div>
       <ul class="navbar-nav">
         <li class="nav-item">
@@ -9,7 +9,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" routerLink="/usuarios">Cerrar Sesión</a>
+          <a class="nav-link active"  aria-current="page" routerLink="" (click)="logoutBtn()">Cerrar Sesión</a>
         </li>
 
       </ul>

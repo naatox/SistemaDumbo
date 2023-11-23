@@ -29,5 +29,14 @@ class DatabaseSeeder extends Seeder
             'password' => \Illuminate\Support\Facades\Hash::make('Jaqamain3pals'),
             'client_id' => $id,
          ]);
+
+         \App\Models\Client::create([
+            'firstName' => 'David',
+            'lastName' => 'Araya',
+            'idNumber' => '3000001',
+            'email' => 'david.araya@alumnos.ucn.cl',
+            'role' => 'client',
+            'points' => 450,
+         ]);
     }
 }

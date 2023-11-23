@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Helpers\MyHelper;
 
 class UsersController extends Controller
 {
@@ -20,26 +21,22 @@ class UsersController extends Controller
             return response()->json($users);
         }catch(\Exception $e){
             return response()->json([
-                'message' => 'Error',
-                'error' => $e->getMessage(),
+                'message' => $e->getMessage(),
             ], 500);
         }
     }
     public function registerUser(Request $request)
     {
         try{
-            $request->validate([
-                'firstName' => 'required|string|max:255',
-                'lastName' => 'required|string|max:255',
-                'idNumber' => 'required|string|max:255|unique:clients',
-                'email' => 'required|string|email|max:255|unique:clients',
-                'points' => 'required|integer|max:255',
-            ]);
-            if($request->points < 0){
-                return response()->json([
-                    'message' => 'Points must be greater than 0',
-                ], 404);
-            }
+            $messages = makeMessages();
+            $this->validate($request,[
+                'firstName' => ['required', 'string', 'max:255'],
+                'lastName' => ['required', 'string', 'max:255'],
+                'idNumber' => ['required', 'string', 'max:255', 'unique:clients'],
+                'email' => ['required', 'string','email', 'max:255', 'unique:clients'],
+                'points' => ['required', 'integer', 'max:255', 'min:0'],
+            ],$messages);
+
 
 
             $user = Client::create([
@@ -52,14 +49,13 @@ class UsersController extends Controller
             ]);
 
             return response()->json([
-                'message' => 'Client created successfully',
+                'message' => 'Cliente creado exitosamente!',
                 'user' => $user
             ]);
 
         }catch(\Exception $e){
             return response()->json([
-                'message' => 'Error',
-                'error' => $e->getMessage(),
+                'message' => $e->getMessage(),
             ], 500);
         }
 
@@ -67,29 +63,41 @@ class UsersController extends Controller
 
     public function updateUser(Request $request){
         try{
-            $request->validate([
-                'firstName' => 'required|string|max:255',
-                'lastName' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|unique:users',
-                'password' => 'required|string|max:255',
-                'points' => 'required|integer',
-            ]);
-            $user = Client::where('id',$request->id)->update([
-                'firstName' => $request->firstName,
-                'lastName' => $request->lastName,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'points' => $request->points,
-                'role' => $request->role,
-            ]);
+            $messages = makeMessages();
+            $oldEmail = Client::where('id',$request->id)->first()->email;
 
-            return response()->json([
-                'message' => 'Client updated successfully',
-            ]);
+            if($oldEmail != $request->email){
+                $this->validate($request,[
+                    'firstName' => ['required', 'string', 'max:255'],
+                    'lastName' => ['required', 'string', 'max:255'],
+                    'email' => ['required', 'string','email', 'max:255', 'unique:clients'],
+                    'points' => ['required', 'integer', 'max:255', 'min:0'],
+                ],$messages);
+            }else{
+                $this->validate($request,[
+                    'firstName' => ['required', 'string', 'max:255'],
+                    'lastName' => ['required', 'string', 'max:255'],
+                    'email' => ['required', 'string','email', 'max:255'],
+                    'points' => ['required', 'integer', 'max:255', 'min:0'],
+                ],$messages);
+                $user = Client::where('id',$request->id)->update([
+                    'firstName' => $request->firstName,
+                    'lastName' => $request->lastName,
+                    'email' => $request->email,
+                    'points' => $request->points
+                ]);
+
+                return response()->json([
+                    'message' => 'Client updated successfully',
+                ]);
+
+            }
+
+
+
         }catch(\Exception $e){
             return response()->json([
-                'message' => 'Error',
-                'error' => $e->getMessage(),
+                'message' => $e->getMessage(),
             ], 500);
         }
     }
@@ -100,17 +108,16 @@ class UsersController extends Controller
             $user = Client::find($request->id);
             if (!$user) {
                 return response()->json([
-                    'message' => 'Client not found',
+                    'message' => 'Cliente no encontrado',
                 ], 404);
             }
             $user->delete();
             return response()->json([
-                'message' => 'Client deleted successfully',
+                'message' => 'Client eliminado exitosamente!',
             ]);
         }catch(\Exception $e){
             return response()->json([
-                'message' => 'Error',
-                'error' => $e->getMessage(),
+                'message' => $e->getMessage(),
             ], 500);
         }
     }
@@ -136,8 +143,7 @@ class UsersController extends Controller
 
         }catch(\Exception $e){
             return response()->json([
-                'message' => 'Error',
-                'error' => $e->getMessage(),
+                'message' => $e->getMessage(),
             ], 500);
         }
 

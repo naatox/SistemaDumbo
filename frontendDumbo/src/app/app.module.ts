@@ -11,7 +11,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { DataTablesModule,DataTableDirective } from 'angular-datatables';
-import { RegisterUserComponent } from './pages/users/register-user/register-user.component'
+import { RegisterUserComponent } from './pages/users/register-user/register-user.component';
+import { EditUserComponent } from './pages/users/edit-user/edit-user.component'
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { RegisterUserComponent } from './pages/users/register-user/register-user
     NavComponent,
     UsersComponent,
     LoginComponent,
-    RegisterUserComponent
+    RegisterUserComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,

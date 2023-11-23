@@ -1,14 +1,20 @@
 <div id="log" class="login">
   <form class="custom-form" [formGroup]="form" (ngSubmit)="onSubmit()" >
-    <h1>Bienvendio Administrador</h1>
-    <div class="mb-3">
+    <h1>Bienvenido Administrador</h1>
+    <div class="mb-3" style="margin-top: 10px;">
       <label for="">Usuario</label>
-     <input type="text" class="form-control" formControlName="user" id="">
+     <input type="text" class="form-control" formControlName="user" placeholder="Usuario">
     </div>
     <div class="mb-3">
       <label for="">Contraseña</label>
-      <input type="text" class="form-control" formControlName="password">
+      <input type="password" class="form-control" formControlName="password" placeholder="Contraseña">
     </div>
-    <button type="submit" values="send" class="btn btn-info">Iniciar Sesión</button>
+    <div id="alert" class="alert">
+      <strong>{{message}}</strong>
+    </div>
+    <div class="center">
+      <button type="submit" values="send" class="btn btn-info">Iniciar Sesión</button>
+
+    </div>
   </form>
 </div>

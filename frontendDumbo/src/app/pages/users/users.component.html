@@ -2,13 +2,14 @@
 
 <div id="usersTableDiv" style="display: block;" >
   <table id="clients" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
-    <thead>
+    <thead style="background-color: lightgreen;">
       <tr>
         <th>Id</th>
         <th>Nombre</th>
         <th>Apellido</th>
         <th>Rut/DNI</th>
         <th>Correo</th>
+        <th>Puntos</th>
         <th>Acciones</th>
       </tr>
     </thead>
@@ -19,6 +20,7 @@
         <th>{{user.lastName}}</th>
         <th>{{user.idNumber}}</th>
         <th>{{user.email}}</th>
+        <th>{{user.points}}</th>
         <th>
           <button id="button" class="btn btn-primary" (click)="editUser(user.id)" >Editar</button>
           <button id="button" class="btn btn-danger" (click)="deleteUser(user.id)" >Eliminar</button>
