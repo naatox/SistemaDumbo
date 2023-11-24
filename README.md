@@ -39,7 +39,9 @@ cd Practica_02/backend-practica02
 
 composer install
 
-npm install 
+npm install
+
+composer dump-autoload
 
 php artisan migrate
 
