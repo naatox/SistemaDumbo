@@ -41,6 +41,16 @@ export class EditUserComponent{
     });
   }
   /**
+   * Configuración inicial del componente.
+   * Obtiene los datos del usuario a editar y los asigna a las propiedades del componente.
+   */
+  ngOnInit(): void {
+    this.service.getUser(this.id).subscribe((data: any) => {
+      this.data = data.user;
+
+    });
+  }
+  /**
    * Maneja la presentación del formulario de edición de usuarios.
    * Realiza una llamada al servicio para editar el usuario con los valores del formulario.
    * Si la edición es exitosa, navega a la página de usuarios.

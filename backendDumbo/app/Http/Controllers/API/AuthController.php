@@ -57,7 +57,7 @@ class AuthController extends Controller
 
         }catch(\Exception $e){
             return response()->json([
-                'message' => 'Error al iniciar sesión'
+                'message' => 'Usuario o contraseña incorrectos'
             ], 500);
         }
 

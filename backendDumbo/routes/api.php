@@ -11,6 +11,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
+
 });
 
 // Rutas para el controlador UsersController
@@ -22,4 +23,8 @@ Route::controller(UsersController::class)->group(function (){
     Route::delete('deleteUser', 'deleteUser');
 });
 
-
+Route::get('login', function (){
+    return response()->json([
+        'message' => 'No se ha iniciado sesión'
+    ], 401);
+})->name('login');

@@ -16,6 +16,7 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api');
+
     }
       /**
      * Obtener todos los usuarios con el rol 'cliente'.
@@ -50,6 +51,11 @@ class UsersController extends Controller
                 'points' => ['required', 'integer', 'max:255', 'min:0'],
             ],$messages);
 
+            if($request->idNumber == '0000000000'){
+                return response()->json([
+                    'message' => 'El número de identificación no es válido',
+                ], 500);
+            }
 
 
             $user = Client::create([
@@ -157,9 +163,10 @@ class UsersController extends Controller
             $request->validate([
                 'idNumber' => 'string|max:255',
                 'email' => 'string|email|max:255',
+                'id' => 'integer|max:255',
             ]);
 
-            $user = Client::where('idNumber', $request->idNumber)->orWhere('email',$request->email)->first();
+            $user = Client::where('idNumber', $request->idNumber)->orWhere('email',$request->email)->orWhere('id',$request->id)->first();
             if (!$user) {
                 return response()->json([
                     'message' => 'Client not found',
@@ -177,6 +184,8 @@ class UsersController extends Controller
         }
 
     }
+
+
 
 
 }

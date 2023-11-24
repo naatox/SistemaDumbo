@@ -27,7 +27,6 @@ export class UsersService {
    */
   getUsers(){
     const token = localStorage.getItem('token');
-    console.log(token);
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -40,7 +39,6 @@ export class UsersService {
    */
   deleteUser(id: any){
     const token = localStorage.getItem('token');
-    console.log(token);
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -54,7 +52,6 @@ export class UsersService {
   registerUser(formValue: any){
 
       const token = localStorage.getItem('token');
-      console.log(token);
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`
       });
@@ -71,10 +68,22 @@ export class UsersService {
    */
   editUser(formValue: any, id: any){
     const token = localStorage.getItem('token');
-    console.log(token);
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
     return this.http.patch(`${this.baseUrl}/api/updateUser?id=${id}`, formValue, {headers, responseType: 'json'});
+  }
+  /**
+   * Obtiene la información de un usuario según su ID.
+   * @param id - ID del usuario a obtener.
+   * @returns Observable con la respuesta del servidor.
+   */
+  getUser(id: any){
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${this.baseUrl}/api/searchUser?id=${id}`, {headers, responseType: 'json'});
+
   }
 }

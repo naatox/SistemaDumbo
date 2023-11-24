@@ -5,20 +5,20 @@
     <h3>Editar usuario</h3>
     <div class="mb-3">
       <label for="">Nombre</label>
-      <input type="text" id="firstName" class="form-control" formControlName="firstName" placeholder="Nombre">
+      <input type="text" id="firstName" value={{data.firstName}} class="form-control" formControlName="firstName" placeholder="Nombre">
     </div>
     <div class="mb-3">
       <label for="">Apellido</label>
-      <input type="text" id="lastName" class="form-control" formControlName="lastName" placeholder="Apellido">
+      <input type="text" id="lastName" value={{data.lastName}} class="form-control" formControlName="lastName" placeholder="Apellido">
     </div>
 
     <div class="mb-3">
       <label for="">Correo</label>
-      <input type="email" id="email" class="form-control" formControlName="email" placeholder="Correo">
+      <input type="email" id="email" value={{data.email}} class="form-control" formControlName="email" placeholder="Correo">
     </div>
     <div class="mb-3">
       <label for="">Puntos</label>
-      <input type="number" id="points" class="form-control" formControlName="points" placeholder="Puntos">
+      <input type="number" id="points" value={{data.points}} class="form-control" formControlName="points" placeholder="Puntos">
     </div>
     <div id="alert" class="alert">
       <strong>{{message}}</strong>
