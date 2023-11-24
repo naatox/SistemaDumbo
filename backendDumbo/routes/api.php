@@ -6,13 +6,14 @@ use App\Http\Controllers\UsersController;
 
 
 
-
+// Rutas para el controlador AuthController
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
 });
 
+// Rutas para el controlador UsersController
 Route::controller(UsersController::class)->group(function (){
     Route::get('searchUser', 'searchUser');
     Route::post('registerUser', 'registerUser');

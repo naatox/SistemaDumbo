@@ -11,7 +11,10 @@ import { throwError } from 'rxjs';
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.css']
 })
-export class EditUserComponent implements OnInit {
+export class EditUserComponent{
+  /**
+   * Propiedades del componente para almacenar información del usuario y mensajes de error.
+   */
   private id = this.user.snapshot.paramMap.get('id')
   firstName: string ='' ;
   lastName: string = '';
@@ -22,7 +25,13 @@ export class EditUserComponent implements OnInit {
   data: any = [];
 
 
-
+  /**
+   * Constructor del componente de edición de usuarios.
+   * Inicializa el formulario reactivo con controles para el nombre, apellido, correo electrónico y puntos del usuario.
+   * @param user - Proporciona acceso a los parámetros de la URL, como el ID del usuario a editar.
+   * @param service - Servicio que proporciona métodos para editar usuarios.
+   * @param router - Facilita la navegación a través de la aplicación.
+   */
   constructor(private user: ActivatedRoute, private service: UsersService,private router: Router){
     this.form = new FormGroup({
       firstName: new FormControl(),
@@ -31,34 +40,31 @@ export class EditUserComponent implements OnInit {
       points: new FormControl()
     });
   }
-  ngOnInit(){
-
-  }
+  /**
+   * Maneja la presentación del formulario de edición de usuarios.
+   * Realiza una llamada al servicio para editar el usuario con los valores del formulario.
+   * Si la edición es exitosa, navega a la página de usuarios.
+   * Si hay un error, muestra un mensaje de error y restablece el formulario.
+   */
   onSubmit(){
     const alert = document.getElementById('alert');
 
-      this.service.editUser(this.form.value, this.id).subscribe(
-        (data) => {
-          // Manejar la respuesta exitosa aquí
-          this.router.navigate(['/usuarios']);
-        },
-        (error) => {
-          // Manejar el error aquí
-          this.message = error.error.message;
+    this.service.editUser(this.form.value, this.id).subscribe(
+      (data) => {
+        // Manejar la respuesta exitosa aquí
+        this.router.navigate(['/usuarios']);
+      },
+      (error) => {
+        // Manejar el error aquí
+        this.message = error.error.message;
 
-          if (alert != null){
-            alert.style.display = 'block';
-            this.form.reset();
-          }
+        if (alert != null){
+          alert.style.display = 'block';
+          this.form.reset();
+        }
 
-          console.error('Error al registrar usuario', error);
-        });;
-
-
-
-
-
+        console.error('Error al registrar usuario', error);
+      });
   }
-
 
 }

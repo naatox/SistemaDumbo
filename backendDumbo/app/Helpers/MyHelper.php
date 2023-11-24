@@ -2,7 +2,13 @@
 
 
 
-
+/**
+ * Función makeMessages
+ *
+ * Devuelve un array asociativo con mensajes personalizados para las reglas de validación.
+ *
+ * @return array
+ */
 function makeMessages()
 {
     $messages = [

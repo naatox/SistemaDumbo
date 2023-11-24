@@ -10,11 +10,18 @@ use App\Helpers\MyHelper;
 
 class UsersController extends Controller
 {
+     /**
+     * Constructor: Establece el middleware para autenticar las solicitudes de la API.
+     */
     public function __construct()
     {
         $this->middleware('auth:api');
     }
-
+      /**
+     * Obtener todos los usuarios con el rol 'cliente'.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getUsers(){
         try{
             $users = Client::where('role','client')->get();
@@ -25,6 +32,12 @@ class UsersController extends Controller
             ], 500);
         }
     }
+    /**
+     * Registrar un nuevo cliente/usuario.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function registerUser(Request $request)
     {
         try{
@@ -60,6 +73,12 @@ class UsersController extends Controller
         }
 
     }
+    /**
+     * Actualizar la información del usuario.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
 
     public function updateUser(Request $request){
         try{
@@ -102,7 +121,12 @@ class UsersController extends Controller
         }
     }
 
-
+    /**
+     * Eliminar un usuario.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function deleteUser(Request $request){
         try{
             $user = Client::find($request->id);
@@ -121,7 +145,12 @@ class UsersController extends Controller
             ], 500);
         }
     }
-
+    /**
+     * Buscar un usuario según el número de ID o el correo electrónico.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function searchUser(Request $request)
     {
         try{

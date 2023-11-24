@@ -26,6 +26,12 @@ export class LoginComponent {
     });
   }
 
+  /**
+   * Maneja el envío del formulario para el componente de inicio de sesión.
+   * Realiza una llamada a la API al servicio de inicio de sesión con los valores del formulario.
+   * Si el inicio de sesión es exitoso, almacena el token de autorización en el almacenamiento local y navega a la página de inicio.
+   * Si hay un error, muestra un mensaje de error y restablece el formulario.
+   */
   async onSubmit() {
     const alert = document.getElementById('alert');
     const response = await this.loginService.login(this.form.value).subscribe(
@@ -38,6 +44,10 @@ export class LoginComponent {
       (error) => {
         // Manejar el error aquí
         this.message = error.error.message;
+        if(!this.message){
+          this.message = 'Error de servidor';
+
+        }
 
         if (alert != null){
           alert.style.display = 'block';
@@ -46,13 +56,6 @@ export class LoginComponent {
 
         console.error('Error al registrar usuario', error);
       });;
-
-
-
-
-
-
-
 
   }
 

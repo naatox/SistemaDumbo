@@ -11,14 +11,26 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    /**
+     * Crea una nueva instancia del controlador.
+     *
+     * Se aplica el middleware 'auth:api' a todos los métodos, excepto 'login'.
+     */
     public function __construct()
     {
         $this->middleware('auth:api', ['except' => ['login']]);
     }
 
+     /**
+     * Maneja la autenticación del usuario y genera un token JWT.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function login(Request $request)
     {
-        $messages = makeMessages();
+        try{
+            $messages = makeMessages();
         $this->validate($request,[
             'user' => ['required', 'string'],
             'password' => ['required', 'string'],
@@ -42,10 +54,21 @@ class AuthController extends Controller
                 'type' => 'bearer',
             ]
         ]);
+
+        }catch(\Exception $e){
+            return response()->json([
+                'message' => 'Error al iniciar sesión'
+            ], 500);
+        }
+
     }
 
 
-
+    /**
+     * Desconecta al usuario y revoca el token JWT.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function logout()
     {
         Auth::logout();
@@ -54,6 +77,11 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Renueva el token JWT del usuario autenticado.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function refresh()
     {
         return response()->json([

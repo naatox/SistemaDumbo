@@ -8,11 +8,16 @@ use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Método run
+     *
+     * Este método se utiliza para poblar la base de datos con datos iniciales para propósitos de prueba y desarrollo.
+     *
+     * @return void
      */
+
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+
 
         \App\Models\Client::create([
             'firstName' => 'Giorgio',
@@ -31,12 +36,48 @@ class DatabaseSeeder extends Seeder
          ]);
 
          \App\Models\Client::create([
-            'firstName' => 'David',
-            'lastName' => 'Araya',
+            'firstName' => 'Davide',
+            'lastName' => 'Ariaia',
             'idNumber' => '3000001',
-            'email' => 'david.araya@alumnos.ucn.cl',
+            'email' => 'davide@gmail.com',
             'role' => 'client',
             'points' => 450,
          ]);
+
+         \App\Models\Client::create([
+            'firstName' => 'Darius',
+            'lastName' => 'Favoras',
+            'idNumber' => '3000002',
+            'email' => 'favoritodedios@uci.it',
+            'role' => 'client',
+            'points' => 450,
+         ]);
+
+         \App\Models\Client::create([
+            'firstName' => 'Ernesto',
+            'lastName' => 'Fuenentrada',
+            'idNumber' => '3000003',
+            'email' => 'fentrada@alumnos.ucn.cl',
+            'role' => 'client',
+            'points' => 450,
+         ]);
+
+         \App\Models\Client::create([
+            'firstName' => 'Wevino',
+            'lastName' => 'Ariano',
+            'idNumber' => '3000004',
+            'email' => 'webin@gmail.com',
+            'role' => 'client',
+            'points' => 450,
+         ]);
+         \App\Models\Client::create([
+            'firstName' => 'Marcello',
+            'lastName' => 'Pratti',
+            'idNumber' => '3000005',
+            'email' => 'pratti@gmail.com',
+            'role' => 'client',
+            'points' => 450,
+         ]);
+
     }
 }

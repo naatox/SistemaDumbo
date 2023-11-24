@@ -13,44 +13,47 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
+     /**
+     * Los atributos que son asignables masivamente.
      *
-     * @var array<int, string>
+     * Estos son los campos que se pueden llenar mediante la asignación masiva usando el método create() o update().
+     *
+     * @var array
      */
     protected $fillable = [
-        'user',
-        'password',
-        'client_id',
-
+        'user',      // Nombre de usuario
+        'password',  // Contraseña
+        'client_id', // Clave foránea relacionada con la tabla 'clients'
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * Los atributos que deben ocultarse para la serialización.
      *
-     * @var array<int, string>
+     * Oculta ciertos atributos cuando se serializa el modelo, como al convertirlo a formato JSON.
+     *
+     * @var array
      */
     protected $hidden = [
-        'password',
+        'password',  // Oculta la contraseña en las respuestas serializadas
     ];
 
-    /**
-     * Get the identifier that will be stored in the subject claim of the JWT.
+   /**
+     * Obtiene el identificador que se almacenará en el claim 'sub' del JWT.
      *
      * @return mixed
      */
     public function getJWTIdentifier()
     {
-        return $this->getKey();
+        return $this->getKey();  // Devuelve la clave primaria del usuario
     }
 
     /**
-     * Return a key value array, containing any custom claims to be added to the JWT.
+     * Devuelve un array clave-valor con cualquier reclamo personalizado que se agregará al JWT.
      *
      * @return array
      */
     public function getJWTCustomClaims()
     {
-        return [];
+        return [];  // No se añaden reclamos personalizados en este caso
     }
 }

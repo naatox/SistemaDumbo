@@ -11,7 +11,9 @@ import { throwError } from 'rxjs';
   styleUrls: ['./register-user.component.css']
 })
 export class RegisterUserComponent {
-
+  /**
+   * Propiedades del componente para almacenar información del usuario y mensajes de error.
+   */
   firstName: string ='' ;
   lastName: string = '';
   idNumber: string = '';
@@ -19,7 +21,12 @@ export class RegisterUserComponent {
   points: number = 0;
   message: string = '';
   form: FormGroup;
-
+  /**
+   * Constructor del componente de registro de usuarios.
+   * Inicializa el formulario reactivo con controles para el nombre, apellido, número de identificación, correo electrónico y puntos del usuario.
+   * @param users - Servicio que proporciona métodos para registrar usuarios.
+   * @param router - Facilita la navegación a través de la aplicación.
+   */
   constructor(private users: UsersService,private router: Router) {
     this.form = new FormGroup({
       firstName: new FormControl(),
@@ -29,6 +36,13 @@ export class RegisterUserComponent {
       points: new FormControl()
     });
   }
+
+  /**
+   * Maneja el envío del formulario de registro de usuarios.
+   * Realiza una llamada al servicio para registrar al usuario con los valores del formulario.
+   * Si el registro es exitoso, navega a la página de usuarios.
+   * Si hay un error, muestra un mensaje de error y restablece el formulario.
+   */
   async onSubmit() {
 
   const alert = document.getElementById('alert');

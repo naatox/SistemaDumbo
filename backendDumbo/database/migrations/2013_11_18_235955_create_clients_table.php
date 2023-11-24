@@ -7,24 +7,28 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Ejecuta la migración para crear la tabla 'clients'.
+     *
+     * @return void
      */
     public function up(): void
     {
         Schema::create('clients', function (Blueprint $table) {
-            $table->id();
-            $table->string('firstName');
-            $table->string('lastName');
-            $table->string('idNumber')->unique();
-            $table->string('email')->unique();
-            $table->integer('points');
-            $table->string('role')->default('client');
-            $table->timestamps();
+            $table->id(); // Columna de clave primaria autoincremental
+            $table->string('firstName'); // Columna para almacenar el primer nombre del cliente
+            $table->string('lastName'); // Columna para almacenar el apellido del cliente
+            $table->string('idNumber')->unique(); // Columna para almacenar el número de identificación único del cliente
+            $table->string('email')->unique(); // Columna para almacenar el correo electrónico único del cliente
+            $table->integer('points'); // Columna para almacenar la cantidad de puntos del cliente (entero)
+            $table->string('role')->default('client'); // Columna para almacenar el rol del cliente (por defecto 'client')
+            $table->timestamps(); // Columnas para almacenar las marcas de tiempo de creación y actualización
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Revierte la migración para eliminar la tabla 'clients'.
+     *
+     * @return void
      */
     public function down(): void
     {
