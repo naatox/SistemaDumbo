@@ -13,6 +13,7 @@ Backend:
 Frontend:
 - Angular 16.2
 
+Descarga del proyecto
 ================================================================================================================
 
 - Clona este repositorio en tu máquina local: 
