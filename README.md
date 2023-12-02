@@ -15,33 +15,52 @@ Frontend:
 
 Descarga del proyecto
 ================================================================================================================
+## Programas a instalar
+
+Instala [GIT](https://git-scm.com/downloads)
+
+Instala [XAMPP](https://www.apachefriends.org/es/index.html) con PHP V8.1.
+
+Instala [Composer](https://getcomposer.org/download/) V2.6.5.
+
+Instala [Nodejs](https://nodejs.org/en) V18.17.
+
+Luego de instalado los programas, deber abrir XAMPP Control Panel, ahí debes presionar el boton "config" de Apache y luego seleciona la opcion "PHP (php.ini)", esta abrira un .txt en el cual buscaras "extension=zip", a este le borras el ";" que se encuentra delante.
+
+Todo esto es para habilitar la instalacion del composer desde la misma maquina, evitando que tenga que descargarlo directamente de internet.
+
+Luego guardas el .txt y continuas con los siguientes pasos.
 
 - Clona este repositorio en tu máquina local: 
 
-		git clone https://github.com/naatox/Desarrollo-Web-Movil
+		git clone https://github.com/naatox/SistemaDumbo
 
-
-## Programas a instalar
-Instala [PHP](https://www.php.net/manual/es/install.php).
-
-Instala [Composer](https://getcomposer.org/download/).
-
-Instala [Nodejs](https://nodejs.org/en).
-`
 
 ## Backend
-Selecciona tus preferencias en el archivo .ENV, especialemente:
-- Puerto (Por defecto 3306).
-- Contraseña.
-
+Ejecuta estos comandos en una terminal en el siguiente orden:
 ```bash
-cd Practica_02/backend-practica02
+
+cd backendDumbo
 
 composer install
 
-npm install
+copy .env.example .env
+
+php artisan key:generate
+
+php artisan jwt:secret
 
 composer dump-autoload
+
+```
+Luego de copiado el archivo .ENV ingresa tus preferencias en el archivo.
+- DB_PORT => Puerto (Por defecto 3306, cambiar a 3306 o según su máquina).
+- DB_DATABASE => Nombre de la base de datos.
+- DB_PASSWORD => Contraseña del proveedor de la base.
+
+
+Luego continua con estas instrucciones:
+```bash
 
 php artisan migrate
 
@@ -49,13 +68,19 @@ php artisan db:seed
 
 php artisan serve
 ```
+Al utilizar el comando php artisan serve, debe de aceptar el crear una nueva base de datos con el nombre ingresado en las preferencias del .ENV, teclear "y" y presionar enter.
+La url del backend deberia de desplegarse en la terminal.
 
 ## Frontend
-
+En una nueva termina ejecuta:
 ```bash
-cd Practica_02/frontend-practica02
 
 npm install -g @angular/cli
+
+```
+Luego
+```bash
+cd frontendDumbo
 
 npm install 
 
